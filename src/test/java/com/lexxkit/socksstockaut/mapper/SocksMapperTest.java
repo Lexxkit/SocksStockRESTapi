@@ -12,7 +12,7 @@ public class SocksMapperTest {
     private final SocksPairMapper mapper = Mappers.getMapper(SocksPairMapper.class);
 
     @Test
-    public void shouldMapSocksPairToDto() {
+    void shouldMapSocksPairToDto() {
         //given
         Color color = new Color();
         color.setId(1L);
@@ -35,7 +35,7 @@ public class SocksMapperTest {
     }
 
     @Test
-    public void shouldMapSocksPairDtoToEntity() {
+    void shouldMapSocksPairDtoToEntity() {
         //given
         SocksStockDto socksStockDto = new SocksStockDto();
         socksStockDto.setColor("green");

@@ -5,7 +5,7 @@ import com.lexxkit.socksstockaut.dto.SocksStockDto;
 import com.lexxkit.socksstockaut.entity.Color;
 import com.lexxkit.socksstockaut.entity.SocksStock;
 import com.lexxkit.socksstockaut.exception.NoSuchColorException;
-import com.lexxkit.socksstockaut.exception.NoSuchSocksInStock;
+import com.lexxkit.socksstockaut.exception.NoSuchSocksInStockException;
 import com.lexxkit.socksstockaut.exception.NotEnoughAmountOfSocksInStockException;
 import com.lexxkit.socksstockaut.mapper.SocksPairMapper;
 import com.lexxkit.socksstockaut.repository.ColorRepository;
@@ -74,7 +74,7 @@ public class SocksStockServiceImpl implements SocksStockService {
         Color currentColor = colorRepository.findByName(socksStockDto.getColor())
                 .orElseThrow(NoSuchColorException::new);
         SocksStock socksStock = socksStockRepository.findByColorIdAndCottonPart(currentColor.getId(), socksStockDto.getCottonPart())
-                .orElseThrow(NoSuchSocksInStock::new);
+                .orElseThrow(NoSuchSocksInStockException::new);
         if (socksStock.getQuantity() < socksStockDto.getQuantity()) {
             throw new NotEnoughAmountOfSocksInStockException();
         }
