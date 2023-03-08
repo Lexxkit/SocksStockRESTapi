@@ -1,7 +1,8 @@
 package com.lexxkit.socksstockaut.mapper;
 
-import com.lexxkit.socksstockaut.dto.SocksPairDto;
-import com.lexxkit.socksstockaut.entity.SocksPair;
+import com.lexxkit.socksstockaut.dto.SocksStockDto;
+import com.lexxkit.socksstockaut.entity.Color;
+import com.lexxkit.socksstockaut.entity.SocksStock;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
@@ -13,38 +14,43 @@ public class SocksMapperTest {
     @Test
     public void shouldMapSocksPairToDto() {
         //given
-        SocksPair socksPair = new SocksPair();
-        socksPair.setId(1L);
-        socksPair.setColor("red");
-        socksPair.setQuantity(2);
-        socksPair.setCottonPart(85);
+        Color color = new Color();
+        color.setId(1L);
+        color.setName("red");
+        SocksStock socksStock = new SocksStock();
+        socksStock.setId(1L);
+        socksStock.setColor(color);
+        socksStock.setQuantity(2);
+        socksStock.setCottonPart(85);
 
         //when
-        SocksPairDto out = mapper.toDto(socksPair);
+        SocksStockDto out = mapper.toDto(socksStock);
+        System.out.println("out = " + out);
 
         //then
         assertThat(out).isNotNull();
-        assertThat(out.getColor()).isEqualTo(socksPair.getColor());
-        assertThat(out.getQuantity()).isEqualTo(socksPair.getQuantity());
-        assertThat(out.getCottonPart()).isEqualTo(socksPair.getCottonPart());
+        assertThat(out.getColor()).isEqualTo(socksStock.getColor().getName());
+        assertThat(out.getQuantity()).isEqualTo(socksStock.getQuantity());
+        assertThat(out.getCottonPart()).isEqualTo(socksStock.getCottonPart());
     }
 
     @Test
     public void shouldMapSocksPairDtoToEntity() {
         //given
-        SocksPairDto socksPairDto = new SocksPairDto();
-        socksPairDto.setColor("green");
-        socksPairDto.setQuantity(1);
-        socksPairDto.setCottonPart(42);
+        SocksStockDto socksStockDto = new SocksStockDto();
+        socksStockDto.setColor("green");
+        socksStockDto.setQuantity(1);
+        socksStockDto.setCottonPart(42);
 
         //when
-        SocksPair out = mapper.toEntity(socksPairDto);
+        SocksStock out = mapper.toEntity(socksStockDto);
+        System.out.println("outEntity = " + out);
 
         //then
         assertThat(out).isNotNull();
         assertThat(out.getId()).isNull();
-        assertThat(out.getColor()).isEqualTo(socksPairDto.getColor());
-        assertThat(out.getQuantity()).isEqualTo(socksPairDto.getQuantity());
-        assertThat(out.getCottonPart()).isEqualTo(socksPairDto.getCottonPart());
+        assertThat(out.getColor().getName()).isEqualTo(socksStockDto.getColor());
+        assertThat(out.getQuantity()).isEqualTo(socksStockDto.getQuantity());
+        assertThat(out.getCottonPart()).isEqualTo(socksStockDto.getCottonPart());
     }
 }

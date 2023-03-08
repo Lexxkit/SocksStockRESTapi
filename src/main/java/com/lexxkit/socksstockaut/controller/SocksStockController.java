@@ -1,6 +1,7 @@
 package com.lexxkit.socksstockaut.controller;
 
-import com.lexxkit.socksstockaut.dto.SocksPairDto;
+import com.lexxkit.socksstockaut.constant.Operation;
+import com.lexxkit.socksstockaut.dto.SocksStockDto;
 import com.lexxkit.socksstockaut.service.SocksStockService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,21 +17,24 @@ public class SocksStockController {
     private final SocksStockService socksStockService;
 
     @GetMapping
-    public ResponseEntity<Integer> getQuantityOfSocksBy() {
+    public ResponseEntity<Integer> getQuantityOfSocksBy(@RequestParam String color,
+                                                        @RequestParam Operation operation,
+                                                        @RequestParam Integer cottonPart) {
         log.info("Was invoked 'getQualityOfSocksBy' method from {}", SocksStockController.class.getSimpleName());
-        int quantity = socksStockService.getQuantityOfSocksBy();
-        return ResponseEntity.ok(quantity);
+        return ResponseEntity.ok(socksStockService.getQuantityOfSocksBy(color, operation, cottonPart));
     }
 
     @PostMapping(path = "/income")
-    public ResponseEntity<SocksPairDto> addSocksToStock(@RequestBody SocksPairDto socksPairDto) {
+    public ResponseEntity<SocksStockDto> addSocksToStock(@RequestBody SocksStockDto socksStockDto) {
         log.info("Was invoked 'addSocksToStock' method from {}", SocksStockController.class.getSimpleName());
-        return ResponseEntity.ok(socksPairDto);
+        socksStockService.addSocks(socksStockDto);
+        return ResponseEntity.ok(socksStockDto);
     }
 
     @PostMapping(path = "/outcome")
-    public ResponseEntity<SocksPairDto> takeSocksFromStock(@RequestBody SocksPairDto socksPairDto) {
+    public ResponseEntity<SocksStockDto> takeSocksFromStock(@RequestBody SocksStockDto socksStockDto) {
         log.info("Was invoked 'takeSocksFromStock' method from {}", SocksStockController.class.getSimpleName());
-        return ResponseEntity.ok(socksPairDto);
+        socksStockService.removeSocks(socksStockDto);
+        return ResponseEntity.ok(socksStockDto);
     }
 }
