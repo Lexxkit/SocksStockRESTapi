@@ -1,7 +1,7 @@
 package com.lexxkit.socksstockaut.service;
 
 import com.lexxkit.socksstockaut.constant.AppConstants;
-import com.lexxkit.socksstockaut.constant.Operation;
+import com.lexxkit.socksstockaut.constant.StockOperation;
 import com.lexxkit.socksstockaut.dto.SocksStockDto;
 import com.lexxkit.socksstockaut.entity.Color;
 import com.lexxkit.socksstockaut.entity.SocksStock;
@@ -68,9 +68,9 @@ public class SocksStockServiceImplTest {
         when(socksStockRepository.findByColorNameAndCottonPartAfter(anyString(), anyInt())).thenReturn(Collections.emptyList());
         when(socksStockRepository.findByColorNameAndCottonPartBefore(anyString(), anyInt())).thenReturn(Collections.emptyList());
 
-        int resultEqual = out.getQuantityOfSocksBy("red", Operation.equal, 0);
-        int resultMoreThan = out.getQuantityOfSocksBy("red", Operation.moreThan, 0);
-        int resultLessThan = out.getQuantityOfSocksBy("red", Operation.lessThan, 0);
+        int resultEqual = out.getQuantityOfSocksBy("red", StockOperation.equal, 0);
+        int resultMoreThan = out.getQuantityOfSocksBy("red", StockOperation.moreThan, 0);
+        int resultLessThan = out.getQuantityOfSocksBy("red", StockOperation.lessThan, 0);
 
         assertThat(resultEqual).isEqualTo(AppConstants.ZERO);
         assertThat(resultMoreThan).isEqualTo(AppConstants.ZERO);
@@ -83,9 +83,9 @@ public class SocksStockServiceImplTest {
         when(socksStockRepository.findByColorNameAndCottonPartAfter(anyString(), anyInt())).thenReturn(List.of(testSocks));
         when(socksStockRepository.findByColorNameAndCottonPartBefore(anyString(), anyInt())).thenReturn(List.of(testSocks));
 
-        int resultEqual = out.getQuantityOfSocksBy("red", Operation.equal, 0);
-        int resultMoreThan = out.getQuantityOfSocksBy("red", Operation.moreThan, 0);
-        int resultLessThan = out.getQuantityOfSocksBy("red", Operation.lessThan, 0);
+        int resultEqual = out.getQuantityOfSocksBy("red", StockOperation.equal, 0);
+        int resultMoreThan = out.getQuantityOfSocksBy("red", StockOperation.moreThan, 0);
+        int resultLessThan = out.getQuantityOfSocksBy("red", StockOperation.lessThan, 0);
 
         assertThat(resultEqual).isEqualTo(testSocks.getQuantity());
         assertThat(resultMoreThan).isEqualTo(testSocks.getQuantity());

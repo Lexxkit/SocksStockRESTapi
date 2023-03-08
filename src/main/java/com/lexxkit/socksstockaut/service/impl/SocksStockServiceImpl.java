@@ -1,6 +1,6 @@
 package com.lexxkit.socksstockaut.service.impl;
 
-import com.lexxkit.socksstockaut.constant.Operation;
+import com.lexxkit.socksstockaut.constant.StockOperation;
 import com.lexxkit.socksstockaut.dto.SocksStockDto;
 import com.lexxkit.socksstockaut.entity.Color;
 import com.lexxkit.socksstockaut.entity.SocksStock;
@@ -31,9 +31,9 @@ public class SocksStockServiceImpl implements SocksStockService {
     private final ColorRepository colorRepository;
     private final SocksPairMapper socksPairMapper;
     @Override
-    public int getQuantityOfSocksBy(String color, Operation operation, Integer cottonPart) {
+    public int getQuantityOfSocksBy(String color, StockOperation stockOperation, Integer cottonPart) {
         Collection<SocksStock> foundSocks = new ArrayList<>();
-        switch (operation) {
+        switch (stockOperation) {
             case equal -> {
                 Optional<SocksStock> socksStock = socksStockRepository.findByColorNameAndCottonPart(color, cottonPart);
                 return socksStock.isPresent() ? socksStock.get().getQuantity() : ZERO;
