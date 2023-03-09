@@ -38,7 +38,7 @@ The application's external interface is represented as an HTTP API (REST).
 ##### List of HTTP URL methods
 ###### POST /api/socks/income
 Records socks income
-###### POST /api/socks/income
+###### POST /api/socks/outcome
 Records socks outcome
 ###### GET /api/socks?color=red&operation=moreThan&cottonPart=90
 Returns the total number of socks in stock that match the query criteria passed in the parameters.
