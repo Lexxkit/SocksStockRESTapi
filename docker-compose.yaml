@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: socks-stock-db
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: sa
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: socks_stock
