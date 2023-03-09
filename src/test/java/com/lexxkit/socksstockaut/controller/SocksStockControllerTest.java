@@ -112,6 +112,24 @@ public class SocksStockControllerTest {
     }
 
     @Test
+    void shouldFail_whenAddSocksNotValid() throws Exception {
+        JSONObject testSocksObject = new JSONObject();
+        testSocksObject.put("color", testDto.getColor());
+        testSocksObject.put("cottonPart", testDto.getCottonPart());
+        testSocksObject.put("quantity", testDto.getQuantity() * 0);
+
+        when(colorRepository.findByName(anyString())).thenReturn(Optional.empty());
+        when(colorRepository.save(any(Color.class))).thenReturn(testColor);
+        when(socksStockRepository.findByColorIdAndCottonPart(anyLong(), anyInt())).thenReturn(Optional.empty());
+
+        mockMvc.perform(post("/socks/income")
+                        .content(testSocksObject.toString())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().is4xxClientError());
+    }
+
+    @Test
     void shouldPass_whenRemoveSocks() throws Exception {
         JSONObject testSocksObject = new JSONObject();
         testSocksObject.put("color", testDto.getColor());
@@ -129,11 +147,28 @@ public class SocksStockControllerTest {
     }
 
     @Test
-    void shouldFail_whenRemoveSocks() throws Exception {
+    void shouldFail_whenRemoveSocksMoreThanHave() throws Exception {
         JSONObject testSocksObject = new JSONObject();
         testSocksObject.put("color", testDto.getColor());
         testSocksObject.put("cottonPart", testDto.getCottonPart());
         testSocksObject.put("quantity", testDto.getQuantity() * 2);
+
+        when(colorRepository.findByName(anyString())).thenReturn(Optional.of(testColor));
+        when(socksStockRepository.findByColorIdAndCottonPart(anyLong(), anyInt())).thenReturn(Optional.of(testSocks));
+
+        mockMvc.perform(post("/socks/outcome")
+                        .content(testSocksObject.toString())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    void shouldFail_whenRemoveSocksNotValid() throws Exception {
+        JSONObject testSocksObject = new JSONObject();
+        testSocksObject.put("color", testDto.getColor());
+        testSocksObject.put("cottonPart", testDto.getCottonPart() * 1000);
+        testSocksObject.put("quantity", testDto.getQuantity());
 
         when(colorRepository.findByName(anyString())).thenReturn(Optional.of(testColor));
         when(socksStockRepository.findByColorIdAndCottonPart(anyLong(), anyInt())).thenReturn(Optional.of(testSocks));
