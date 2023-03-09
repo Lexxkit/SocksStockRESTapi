@@ -1,0 +1,10 @@
+com.lexxkit.socksstockaut
+com.lexxkit.socksstockaut.constant
+com.lexxkit.socksstockaut.controller
+com.lexxkit.socksstockaut.dto
+com.lexxkit.socksstockaut.entity
+com.lexxkit.socksstockaut.exception
+com.lexxkit.socksstockaut.mapper
+com.lexxkit.socksstockaut.repository
+com.lexxkit.socksstockaut.service
+com.lexxkit.socksstockaut.service.impl

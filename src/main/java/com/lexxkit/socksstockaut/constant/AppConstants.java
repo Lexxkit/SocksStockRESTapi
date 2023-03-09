@@ -1,5 +1,8 @@
 package com.lexxkit.socksstockaut.constant;
 
+/**
+ * Contains constants that is used in the app.
+ */
 public class AppConstants {
     public static final int ZERO = 0;
     public static final String NO_SUCH_COLOR = "There is no such color among our sock stock.";
