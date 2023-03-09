@@ -12,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @Slf4j
 @RequiredArgsConstructor
 @RestController
@@ -29,10 +31,10 @@ public class SocksStockController {
             })
     @GetMapping
     public ResponseEntity<Integer> getQuantityOfSocksBy(@RequestParam String color,
-                                                        @RequestParam StockOperation stockOperation,
+                                                        @RequestParam StockOperation operation,
                                                         @RequestParam Integer cottonPart) {
         log.info("Was invoked 'getQualityOfSocksBy' method from {}", SocksStockController.class.getSimpleName());
-        return ResponseEntity.ok(socksStockService.getQuantityOfSocksBy(color, stockOperation, cottonPart));
+        return ResponseEntity.ok(socksStockService.getQuantityOfSocksBy(color, operation, cottonPart));
     }
 
     @Operation(summary = "addSocksToStock",
@@ -42,7 +44,7 @@ public class SocksStockController {
                     @ApiResponse(responseCode = "500", description = "Server side error occurs.", content = @Content)
             })
     @PostMapping(path = "/income")
-    public ResponseEntity<SocksStockDto> addSocksToStock(@RequestBody SocksStockDto socksStockDto) {
+    public ResponseEntity<SocksStockDto> addSocksToStock(@Valid @RequestBody SocksStockDto socksStockDto) {
         log.info("Was invoked 'addSocksToStock' method from {}", SocksStockController.class.getSimpleName());
         socksStockService.addSocks(socksStockDto);
         return ResponseEntity.ok().build();
@@ -55,7 +57,7 @@ public class SocksStockController {
                     @ApiResponse(responseCode = "500", description = "Server side error occurs.", content = @Content)
             })
     @PostMapping(path = "/outcome")
-    public ResponseEntity<SocksStockDto> takeSocksFromStock(@RequestBody SocksStockDto socksStockDto) {
+    public ResponseEntity<SocksStockDto> takeSocksFromStock(@Valid @RequestBody SocksStockDto socksStockDto) {
         log.info("Was invoked 'takeSocksFromStock' method from {}", SocksStockController.class.getSimpleName());
         socksStockService.removeSocks(socksStockDto);
         return ResponseEntity.ok().build();
