@@ -25,7 +25,6 @@ public class SocksMapperTest {
 
         //when
         SocksStockDto out = mapper.toDto(socksStock);
-        System.out.println("out = " + out);
 
         //then
         assertThat(out).isNotNull();
@@ -44,7 +43,6 @@ public class SocksMapperTest {
 
         //when
         SocksStock out = mapper.toEntity(socksStockDto);
-        System.out.println("outEntity = " + out);
 
         //then
         assertThat(out).isNotNull();
